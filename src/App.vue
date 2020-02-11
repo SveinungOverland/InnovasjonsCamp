@@ -162,8 +162,12 @@ export default {
     padding: 0;
 }
 
-#app {
+body {
+    background-image: url("./assets/spikes.png");
+}
 
+#app {
+    font-family: 'Roboto', sans-serif;
 }
 
 .grid {
@@ -199,10 +203,12 @@ export default {
     align-content: center;
     align-items: center;
     align-self: stretch;
-    background-color: gray;
+    background-color: rgba(54, 54, 51, 0.85);
+    color: white;
     text-justify: center;
     font-size: 24px;
     padding: 20px 0px;
+    box-shadow: 0px 4px 15px 0px rgba(0,0,0,0.75);
 }
 
 .button {
@@ -211,10 +217,13 @@ export default {
     align-content: center;
     align-items: center;
     align-self: stretch;
-    background-color: gray;
+    background-color: rgba(54, 54, 51, 0.85);
+    color: white;
     text-justify: center;
     font-size: 50px;
     padding: 80px 0px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.75);
 }
 
 .button:hover {
