@@ -85,11 +85,11 @@ export default {
         root: {
             buttons: {
                 "/bank": {
-                    name: "Vil du ha bank",
+                    name: "Bank",
                     buttons: {
                         "/saldo": {
                             name: "Se saldo",
-                            text: "Saldoen din er -23 kr! Lykke til",
+                            text: "Saldoen din er 24289 kr",
                             buttons: {
                                 '/ok': {
                                     name: "Ok",
@@ -100,7 +100,7 @@ export default {
                     },
                 },
                 "/helse": {
-                    name: "Helse, hva med helikkese",
+                    name: "Helse",
                     buttons: {
                         "/legetime": {
                             name: "Neste legetime",
@@ -115,7 +115,7 @@ export default {
                     }
                 },
                 "/taxi": {
-                    name: "Taxi, fikk du fullt hus",
+                    name: "Taxi",
                     buttons: {
                         "/bestill": {
                             name: "Bestill taxi",
