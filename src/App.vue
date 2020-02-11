@@ -1,14 +1,26 @@
 <template>
     <div id="app">
-        <div id="grid" :text="Boolean(route.text)">
+        <div 
+            class="header"
+        >
+            <div
+                v-for="trail in trails"
+                :key="trail.name"
+                class="header-button"
+                @click="changeRoute(trail.route)"
+            >
+                <h4>{{ trail.name }}</h4>
+            </div>
+        </div>
+        <div class="grid" :text="Boolean(route.text)">
             <h1 v-if="route.text" style="font-size: 50px; text-align: center;">{{ route.text }}</h1>
             <div
                 v-for="button in buttons"
-                :key="button.route"
+                :key="button.route" 
                 class="button"
                 @click="handleClick(button.route)"
             >
-                {{ button.name }}
+                <h4>{{ button.name }}</h4>
             </div>
         </div>
     </div>
@@ -22,6 +34,13 @@ export default {
     components: {
         
     },
+    mounted() {
+    },
+    watch: {
+        trails(newTrail) {
+            console.log(newTrail)
+        }
+    },
     computed: {
         buttons() {
             return this.route.buttons ? Object.entries(this.route.buttons).map(([key, value]) => ({
@@ -30,25 +49,39 @@ export default {
             })) : false
         },
         route() {
-            const route = this.$route.path
-                .split("/")
-                .filter(it => it.length)
+            const route = this.paths
                 .reduce((prev, curr) => prev.buttons[`/${curr}`], this.root)
             if (route.goto){
-                this.$nextTick(() => this.changeRoute(route.goto))
+                this.nextTickRoute(route)
             }
             return route
+        },
+        trails() {
+            return this.paths.length === 0 ? [] : this.paths
+                .slice(0, this.paths.length - 1)
+                .reduce((prev, curr) => [...prev, {
+                    name: curr.replace(/^\w/, c => c.toUpperCase()),
+                    route: [prev[prev.length-1].route, curr].join("/")
+                }], [{ name: "Home", route: "/" }])
+        },
+        paths() {
+            return this.$route.path.split("/").filter(it => it.length)
         }
     },
     methods: {
+        nextTickRoute(route) {
+            this.$nextTick(() => this.changeRoute(route.goto))
+        },
         handleClick(route) {
             this.changeRoute(this.$route.path + route)
         },
         changeRoute(route) {
+            this.show = false
             this.$router.push(route)
         }
     },
     data() { return {
+        show: true,
         root: {
             buttons: {
                 "/bank": {
@@ -64,9 +97,6 @@ export default {
                                 }
                             }
                         },
-                        "/regninger": {
-                            name: "Regninger",
-                        }
                     },
                 },
                 "/helse": {
@@ -82,9 +112,6 @@ export default {
                                 }
                             }
                         },
-                        "/bestill": {
-                            name: "Bestill legetime",
-                        }
                     }
                 },
                 "/taxi": {
@@ -139,23 +166,51 @@ export default {
 
 }
 
-#grid {
+.grid {
     display: grid;
     padding: 0 50px;
-    min-height: 100vh;
+    min-height: 80vh;
     align-content: center;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     grid-gap: 30px;
 }
 
-#grid[text="true"] {
-    grid-template-columns: 1fr;
+.grid[text="true"] {
+    /* grid-column: 1 / -1; */
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid[text="true"] *:first-child, .grid[text="true"] div:only-of-type {
+    grid-column: span 2;
+}
+
+.header {
+    height: 67px;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-gap: 30px;
+}
+
+.header-button {
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: stretch;
+    background-color: gray;
+    text-justify: center;
+    font-size: 24px;
+    padding: 20px 0px;
 }
 
 .button {
     cursor: pointer;
     text-align: center;
     align-content: center;
+    align-items: center;
+    align-self: stretch;
     background-color: gray;
     text-justify: center;
     font-size: 50px;
