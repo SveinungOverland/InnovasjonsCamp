@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div id="grid" :text="Boolean(route.text)">
-            <h1 v-if="route.text" text style="font-size: 50px; text-align: center;">{{ route.text }}</h1>
+            <h1 v-if="route.text" style="font-size: 50px; text-align: center;">{{ route.text }}</h1>
             <div
                 v-for="button in buttons"
                 :key="button.route"
@@ -155,11 +155,11 @@ export default {
 .button {
     cursor: pointer;
     text-align: center;
+    align-content: center;
     background-color: gray;
     text-justify: center;
     font-size: 50px;
-    height: 100px;
-    padding: 60px 0;
+    padding: 80px 0px;
 }
 
 .button:hover {
