@@ -9,6 +9,7 @@
     "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
     "start": "node server.js"
   },
+  
   "dependencies": {
     "core-js": "^3.6.4",
     "highered-utils": "^1.0.28",
