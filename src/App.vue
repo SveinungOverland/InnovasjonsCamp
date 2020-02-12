@@ -18,6 +18,9 @@
                 v-for="button in buttons"
                 :key="button.route" 
                 class="button"
+                :style="{
+                    'background-color': button.background
+                }"
                 @click="handleClick(button.route)"
             >
                 <h4>{{ button.name }}</h4>
@@ -34,18 +37,12 @@ export default {
     components: {
         
     },
-    mounted() {
-    },
-    watch: {
-        trails(newTrail) {
-            console.log(newTrail)
-        }
-    },
     computed: {
         buttons() {
             return this.route.buttons ? Object.entries(this.route.buttons).map(([key, value]) => ({
                 name: value.name,
-                route: key
+                route: key,
+                background: value.background
             })) : false
         },
         route() {
@@ -86,13 +83,16 @@ export default {
             buttons: {
                 "/bank": {
                     name: "Bank",
+                    background: '#d18b31',
                     buttons: {
                         "/saldo": {
                             name: "Se saldo",
                             text: "Saldoen din er 24289 kr",
+                            background: '#d18b31',
                             buttons: {
                                 '/ok': {
                                     name: "Ok",
+                                    background: '#d18b31',
                                     goto: "/"
                                 }
                             }
@@ -101,13 +101,16 @@ export default {
                 },
                 "/helse": {
                     name: "Helse",
+                    background: '#001290',
                     buttons: {
                         "/legetime": {
                             name: "Neste legetime",
                             text: "Din neste legetime er kommende tirsdag",
+                            background: '#001290',
                             buttons: {
                                 "/ok": {
                                     name: "Ok",
+                                    background: '#001290',
                                     goto: "/"
                                 }
                             }
@@ -116,13 +119,16 @@ export default {
                 },
                 "/taxi": {
                     name: "Taxi",
+                    background: '#4faa32',
                     buttons: {
                         "/bestill": {
                             name: "Bestill taxi",
                             text: "Taxien er bestillt og kommer om 15 min",
+                            background: '#4faa32',
                             buttons: {
                                 "/ok": {
                                     name: "Ok",
+                                    background: '#4faa32',
                                     goto: "/"
                                 }
                             }
@@ -134,9 +140,11 @@ export default {
                                 "/ja": {
                                     name: "Ja",
                                     text: "Taxien er avbestillt",
+                                    background: '#4faa32',
                                     buttons: {
                                         '/ok': {
                                             name: "Ok",
+                                            background: '#4faa32',
                                             goto: "/"
                                         }
                                     }
